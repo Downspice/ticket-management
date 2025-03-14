@@ -8,11 +8,12 @@ interface StatusColumnProps {
   title: string
   tickets: Ticket[]
   status: TicketStatus
+  backgroundColor:string
 }
 
-export default function StatusColumn({ title, tickets, status }: StatusColumnProps) {
+export default function StatusColumn({ title, tickets, status,backgroundColor }: StatusColumnProps) {
   return (
-    <div className="bg-gray-50 rounded-lg p-4">
+    <div className={`${backgroundColor} rounded-lg p-4 h-full overflow-scroll`}>
       <h2 className="text-xl font-semibold mb-4">{title}</h2>
       <Droppable droppableId={status}>
         {(provided) => (

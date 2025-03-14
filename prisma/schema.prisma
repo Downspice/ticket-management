@@ -13,7 +13,7 @@ model Ticket {
   name         String
   priority     String
   creator      String
-  description  String
+  description  String   
   status       String
   cause        String?
   solution     String?

@@ -1,5 +1,4 @@
 "use client"
-
 import { useState, useEffect } from "react"
 import { DragDropContext, type DropResult } from "@hello-pangea/dnd"
 import StatusColumn from "@/components/status-column"
@@ -114,12 +113,12 @@ export default function TicketBoard() {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div className="grid grid-cols-1 h-5/6 md:grid-cols-2 lg:grid-cols-4 gap-6">
       <DragDropContext onDragEnd={handleDragEnd}>
-        <StatusColumn title="Not Started" tickets={getTicketsByStatus("Not Started")} status="Not Started" />
-        <StatusColumn title="In Progress" tickets={getTicketsByStatus("In Progress")} status="In Progress" />
-        <StatusColumn title="On Hold" tickets={getTicketsByStatus("On Hold")} status="On Hold" />
-        <StatusColumn title="Solved" tickets={getTicketsByStatus("Solved")} status="Solved" />
+        <StatusColumn  title="Not Started" tickets={getTicketsByStatus("Not Started")} status="Not Started" backgroundColor={"bg-[#ff000080]"} />
+        <StatusColumn title="In Progress" tickets={getTicketsByStatus("In Progress")} status="In Progress" backgroundColor={"bg-red-600"} />
+        <StatusColumn title="On Hold" tickets={getTicketsByStatus("On Hold")} status="On Hold" backgroundColor={"bg-red-600"} />
+        <StatusColumn title="Solved" tickets={getTicketsByStatus("Solved")} status="Solved" backgroundColor={"bg-red-600"}  />
       </DragDropContext>
 
       {showSolvedModal && currentTicket && (
