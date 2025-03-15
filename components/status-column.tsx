@@ -1,7 +1,7 @@
 "use client"
 
 import { Droppable, Draggable } from "@hello-pangea/dnd"
-import TicketCard from "@/components/ticket-card"
+import TicketCard from "../../components/ticket-card"
 import type { Ticket, TicketStatus } from "@/lib/types"
 
 interface StatusColumnProps {
