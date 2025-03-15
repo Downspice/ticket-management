@@ -5,8 +5,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "
 import { Button } from "../components/ui/button"
 import { Textarea } from "../components/ui/textarea"
 import { Label } from "../components/ui/label"
-import type { Ticket } from "@/lib/types"
-import { validateInput } from "@/lib/utils"
+import type { Ticket } from "../lib/types"
+import { validateInput } from "../lib/utils"
 
 interface SolvedModalProps {
   ticket: Ticket

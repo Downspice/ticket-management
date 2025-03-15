@@ -5,12 +5,12 @@ import { useParams, useRouter } from "next/navigation"
 import Link from "next/link"
 import { Button } from "../../../components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "../../../components/ui/card"
-import type { Ticket, User } from "@/lib/types"
-import { updateTicketAssignee } from "@/lib/actions"
+import type { Ticket, User } from "../../../lib/types"
+import { updateTicketAssignee } from "../../../lib/actions"
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "../../../components/ui/command"
 import { Popover, PopoverContent, PopoverTrigger } from "../../../components/ui/popover"
 import { Check, ChevronsUpDown } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { cn } from "../../../lib/utils"
 
 export default function TicketDetailPage() {
   const router = useRouter()

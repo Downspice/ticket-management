@@ -10,13 +10,13 @@ import { Label } from "../../components/ui/label"
 import { Textarea } from "../../components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../components/ui/select"
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "../../components/ui/card"
-import { createTicket } from "@/lib/actions"
-import { validateInput } from "@/lib/utils"
-import type { User } from "@/lib/types"
+import { createTicket } from "../../lib/actions"
+import { validateInput } from "../../lib/utils"
+import type { User } from "../../lib/types"
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "../../components/ui/command"
 import { Popover, PopoverContent, PopoverTrigger } from "../../components/ui/popover"
 import { Check, ChevronsUpDown } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { cn } from "../../lib/utils"
 
 export default function CreateTicket() {
   const router = useRouter()

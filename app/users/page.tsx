@@ -7,8 +7,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from ".
 import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/card"
 import { Switch } from "../../components/ui/switch"
 import { Badge } from "../../components/ui/badge"
-import type { User } from "@/lib/types"
-import { toggleUserStatus } from "@/lib/actions"
+import type { User } from "../../lib/types"
+import { toggleUserStatus } from "../../lib/actions"
 
 export default function UsersPage() {
   const [users, setUsers] = useState<User[]>([])

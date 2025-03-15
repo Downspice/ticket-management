@@ -1,8 +1,8 @@
 "use server"
 
 import { revalidatePath } from "next/cache"
-import { prisma } from "@/lib/prisma"
-import type { CreateTicketData, CreateUserData, UpdateUserData, TicketStatus } from "@/lib/types"
+import { prisma } from "../lib/prisma"
+import type { CreateTicketData, CreateUserData, UpdateUserData, TicketStatus } from "../lib/types"
 
 export async function createTicket(data: CreateTicketData) {
   try {
