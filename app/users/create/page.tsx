@@ -4,13 +4,13 @@ import type React from "react"
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { Button } from "../../components/ui/button"
-import { Input } from "../../components/ui/input"
-import { Label } from "../../components/ui/label"
-import { Checkbox } from "../../components/ui/checkbox"
-import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "../../components/ui/card"
-import { createUser } from "@/lib/actions"
-import { validateInput } from "@/lib/utils"
+import { Button } from "../../../components/ui/button"
+import { Input } from "../../../components/ui/input"
+import { Label } from "../../../components/ui/label"
+import { Checkbox } from "../../../components/ui/checkbox"
+import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "../../../components/ui/card"
+import { createUser } from "../../../lib/actions"
+import { validateInput } from "../../../lib/utils"
 
 export default function CreateUserPage() {
   const router = useRouter()

@@ -1,6 +1,6 @@
 import Link from "next/link"
-import { Button } from "../../components/ui/button"
-import TicketBoard from "../../components/ticket-board"
+import { Button } from "../components/ui/button"
+import TicketBoard from "../components/ticket-board"
 
 export default function Home() {
   return (
