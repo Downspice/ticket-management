@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npx prisma generate && npx prisma db push && next build --force",
+    "build": "npm config set legacy-peer-deps true && npx prisma generate && npx prisma db push && next build --force",
     "start": "next start",
     "lint": "next lint"
   },
