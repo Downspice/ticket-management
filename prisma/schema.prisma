@@ -12,13 +12,26 @@ model Ticket {
   ticketNumber Int      @unique
   name         String
   priority     String
-  creator      String
-  description  String   
+  assignedToId String?
+  assignedToName String?
+  assignedTo   User?    @relation(fields: [assignedToId], references: [id]) 
+  description  String
   status       String
   cause        String?
   solution     String?
   holdReason   String?
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+}
+
+model User {
+  id        String   @id @default(uuid())
+  fullName  String
+  email     String   @unique
+  roles     String[]
+  enabled   Boolean  @default(true)
+  tickets   Ticket[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 

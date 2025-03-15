@@ -8,12 +8,26 @@ interface StatusColumnProps {
   title: string
   tickets: Ticket[]
   status: TicketStatus
-  backgroundColor:string
 }
 
-export default function StatusColumn({ title, tickets, status,backgroundColor }: StatusColumnProps) {
+export default function StatusColumn({ title, tickets, status }: StatusColumnProps) {
+  const getColumnColor = (status: TicketStatus) => {
+    switch (status) {
+      case "Not Started":
+        return "bg-blue-50"
+      case "In Progress":
+        return "bg-amber-50"
+      case "On Hold":
+        return "bg-purple-50"
+      case "Solved":
+        return "bg-green-50"
+      default:
+        return "bg-gray-50"
+    }
+  }
+
   return (
-    <div className={`${backgroundColor} rounded-lg p-4 h-full overflow-scroll`}>
+    <div className={`rounded-lg p-4 ${getColumnColor(status)}`}>
       <h2 className="text-xl font-semibold mb-4">{title}</h2>
       <Droppable droppableId={status}>
         {(provided) => (

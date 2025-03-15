@@ -2,9 +2,8 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
-  generator: 'v0.dev',
+  title: 'Awer | Ticket Manager',
+  description: 'Ticket manager created by Joseph Awer', 
 }
 
 export default function RootLayout({
@@ -14,7 +13,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className='bg-[#efe1c9cf]'>{children}</body>
+      <body>{children}</body>
     </html>
   )
 }

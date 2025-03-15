@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -12,22 +12,46 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card"
 import { createTicket } from "@/lib/actions"
 import { validateInput } from "@/lib/utils"
+import type { User } from "@/lib/types"
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { Check, ChevronsUpDown } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 export default function CreateTicket() {
   const router = useRouter()
   const [formData, setFormData] = useState({
     name: "",
     priority: "",
-    creator: "",
+    assignedToId: "",
+    assignedToName:"",
     description: "",
   })
   const [errors, setErrors] = useState({
     name: "",
     priority: "",
-    creator: "",
+    assignedToId: "",
+    assignedToName:"",
     description: "",
   })
+  const [technicians, setTechnicians] = useState<User[]>([])
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [open, setOpen] = useState(false)
+
+  useEffect(() => {
+    const fetchTechnicians = async () => {
+      try {
+        const response = await fetch("/api/users?role=technician")
+        if (!response.ok) throw new Error("Failed to fetch technicians")
+        const data = await response.json()
+        setTechnicians(data)
+      } catch (error) {
+        console.error("Error fetching technicians:", error)
+      }
+    }
+
+    fetchTechnicians()
+  }, [])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -39,8 +63,8 @@ export default function CreateTicket() {
     }
   }
 
-  const handleSelectChange = (name: string, value: string) => {
-    setFormData((prev) => ({ ...prev, [name]: value }))
+  const handleSelectChange = (name: string, value: string,name2?: string, value2?: string) => {
+    setFormData((prev) => ({ ...prev, [name]: value,[name2]: value2 }))
 
     // Clear error when user selects
     if (errors[name as keyof typeof errors]) {
@@ -52,7 +76,7 @@ export default function CreateTicket() {
     const newErrors = {
       name: validateInput(formData.name),
       priority: formData.priority ? "" : "Priority is required",
-      creator: validateInput(formData.creator),
+      assignedToId: formData.assignedToId ? "" : "Assignee is required",
       description: validateInput(formData.description),
     }
 
@@ -67,8 +91,7 @@ export default function CreateTicket() {
       return
     }
 
-    setIsSubmitting(true)
-
+    setIsSubmitting(true) 
     try {
       await createTicket(formData)
       router.push("/")
@@ -120,17 +143,53 @@ export default function CreateTicket() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="creator">
-                Created By <span className="text-red-500">*</span>
+              <Label htmlFor="assignedToId">
+                Assigned To <span className="text-red-500">*</span>
               </Label>
-              <Input
-                id="creator"
-                name="creator"
-                value={formData.creator}
-                onChange={handleChange}
-                className={errors.creator ? "border-red-500" : ""}
-              />
-              {errors.creator && <p className="text-red-500 text-sm">{errors.creator}</p>}
+              <Popover open={open} onOpenChange={setOpen}>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    role="combobox"
+                    aria-expanded={open}
+                    className={`w-full justify-between ${errors.assignedToId ? "border-red-500" : ""}`}
+                  >
+                    {formData.assignedToId
+                      ? technicians.find((user) => user.id === formData.assignedToId)?.fullName || "Select technician"
+                      : "Select technician"}
+                    <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-full p-0">
+                  <Command>
+                    <CommandInput placeholder="Search technician..." />
+                    <CommandList>
+                      <CommandEmpty>No technician found.</CommandEmpty>
+                      <CommandGroup>
+                        {technicians.map((user) => (
+                          <CommandItem
+                            key={user.id}
+                            value={user.fullName}
+                            onSelect={() => {
+                              handleSelectChange("assignedToId", user.id,"assignedToName",user.fullName)
+                              setOpen(false)
+                            }}
+                          >
+                            <Check
+                              className={cn(
+                                "mr-2 h-4 w-4",
+                                formData.assignedToId === user.id ? "opacity-100" : "opacity-0",
+                              )}
+                            />
+                            {user.fullName}
+                          </CommandItem>
+                        ))}
+                      </CommandGroup>
+                    </CommandList>
+                  </Command>
+                </PopoverContent>
+              </Popover>
+              {errors.assignedToId && <p className="text-red-500 text-sm">{errors.assignedToId}</p>}
             </div>
 
             <div className="space-y-2">
